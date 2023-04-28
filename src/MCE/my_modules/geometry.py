@@ -16,6 +16,9 @@ def weighted_rasters(data, factors):
     Returns:
         list: A list of 2D arrays representing the multiplied rasters.
     """
+    num_rows, num_cols = len(data[2]), len(data[2][0])
+    print(num_rows)
+    print(num_cols)
     weighted_rasters = []
     for i in range(len(data)):
         raster = data[i]

@@ -30,5 +30,11 @@ file_paths = ['../../data/input/geology.txt', '../../data/input/population.txt',
 data = read_data(file_paths)
 #print(data)
 
-print('geology',data[0])
+#print('geology',data[0])
+
+def write_Data(rescaled_raster):
+    f = open('../../data/output/out.txt', 'w', newline='')
+    writer = csv.writer(f,delimiter=',',quoting=csv.QUOTE_NONNUMERIC)
+    for row in rescaled_raster:
+        writer.writerow(row)
     

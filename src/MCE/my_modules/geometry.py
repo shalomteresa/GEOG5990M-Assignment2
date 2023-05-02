@@ -5,7 +5,7 @@ Created on Thu Apr 27 13:01:52 2023
 @author: gy22stp
 """
 
-def weighted_rasters(data, factors):
+def weighted_rasters(data, weights):
     """
     Multiplies each raster in the input data list by the corresponding factor in the factors list.
 
@@ -22,10 +22,10 @@ def weighted_rasters(data, factors):
     weighted_rasters = []
     for i in range(len(data)):
         raster = data[i]
-        factor = factors[i]
+        weight = weights[i]
         weighted_raster = []
         for row in raster:
-            weighted_row = [value * factor for value in row]
+            weighted_row = [value * weight for value in row]
             weighted_raster.append(weighted_row)
         weighted_rasters.append(weighted_raster)
     return weighted_rasters

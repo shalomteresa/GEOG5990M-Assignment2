@@ -55,9 +55,9 @@ def read_data(filepath):
 
 #print('geology',data[0])
 
-def write_Data(rescaled_raster):
-    f = open('../../data/output/out.txt', 'w', newline='')
+def write_Data(filepath,output):
+    f = open(filepath, 'w', newline='')
     writer = csv.writer(f,delimiter=',',quoting=csv.QUOTE_NONNUMERIC)
-    for row in rescaled_raster:
+    for row in output:
         writer.writerow(row)
     

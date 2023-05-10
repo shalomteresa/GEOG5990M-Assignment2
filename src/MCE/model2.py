@@ -18,6 +18,7 @@ import tkinter.ttk as ttk
 from PIL import Image, ImageTk
 import numpy as np
 import imageio
+import doctest
 
 def get_weighted_sum(gw, tw, pw, geology, transport, population):
     """
@@ -103,11 +104,7 @@ def plot(gw, tw, pw):
         row = []
         for j in range(n_cols):
             rescaled_value = int((weighted_sum[i][j] - min_val) / (max_val - min_val) * 255)
-            #if rescaled_value != 0:
-            #    print(rescaled_value)
-            # Add the rescaled value to the current row
             row.append(rescaled_value)
-        # Add the current row to the output list
         rescaled_output.append(row)   
     plt.imshow(rescaled_output)
     plt.show()
@@ -130,14 +127,7 @@ def update(x):
     None.
 
     """
-    # pw = int(float(scale2.get()))
-    # scale2_label.config(text='g=' + str(pw))
-    # gw = int(float(scale1.get()))
-    # scale1_label.config(text='p=' + str(gw))
-    # tw = int(float(scale3.get()))
-    # scale3_label.config(text='t=' + str(tw))
-    # plot(gw, pw ,tw)
-    
+  
     gw = scale1.get()
     scale1_label.config(text='geology=' + str(round(gw,1)))
     tw = scale2.get()
@@ -154,8 +144,7 @@ gw = 0
 tw = 0
 pw = 0
 
-# output = f"geology={gw}, transport={tw}, population={pw}"
-# output(output)
+
 
 def output(output):
     """
@@ -183,7 +172,7 @@ def image_output():
     
     # For storing images
     global ite
-    ite = 0
+    ite += 1
     images = []
     filename = '../../data/output/images/suitablesite' + str(ite) + '.png'
     plt.savefig(filename)
@@ -195,7 +184,7 @@ def image_output():
 if __name__ == '__main__' :
     
     # For testing
-    import doctest
+  
     doctest.testmod()
     
     #read the data from txt file
@@ -255,11 +244,19 @@ if __name__ == '__main__' :
     ax3.set_title('Transport')
     cbar = figure3.colorbar(ax3.imshow(transport))
     
-    
-   
-    # Create a frame for the canvas 
+       
+    #Create a frame for the canvas 
     frame_1 = tk.Frame(master=root, padx = 30, pady = -5, bd= 50)
-    frame_1.pack(side=tk.LEFT, fill=tk.BOTH,expand=0, anchor=tk.CENTER)
+    frame_1.pack(side=tk.LEFT, fill=tk.BOTH, anchor=tk.CENTER, expand = True)
+   
+    
+    frame_2 = tk.Frame(master=root, padx = 5, pady = 80)
+    frame_2.pack(side=tk.LEFT, fill=tk.BOTH, expand = True)
+   
+    
+    frame_3 = tk.Frame(master=root, padx = 30, pady = 80)
+    frame_3.pack(side=tk.LEFT, fill=tk.BOTH, expand = True)
+   
     
     canvas1 = FigureCanvasTkAgg(figure1, master=frame_1)
     canvas1.draw()
@@ -271,21 +268,17 @@ if __name__ == '__main__' :
     canvas2.get_tk_widget().grid(row=1,column=0)
     
     
-    # frame_3 = tk.Frame(master=root)
-    # frame_3.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
     canvas3 = FigureCanvasTkAgg(figure3, master=frame_1)
     canvas3.draw()
     canvas3.get_tk_widget().grid(row=2,column=0)
     
-    frame_2 = tk.Frame(master=root, padx = 5, pady = 80)
-    frame_2.pack(side=tk.LEFT, fill=tk.BOTH)
+    
     # Create a canvas to display the figure
     canvas = FigureCanvasTkAgg(figure, master=frame_2)
     canvas.draw()
     canvas.get_tk_widget().grid(row=0,column=0)
     
-    frame_3 = tk.Frame(master=root, padx = 30, pady = 80)
-    frame_3.pack(side=tk.LEFT, fill=tk.BOTH)
+   
    # Create the sliders
     scale1 = ttk.Scale(frame_3, from_=0, to=1, command=update, style="Horizontal.TScale")
     scale1.pack()
@@ -307,15 +300,15 @@ if __name__ == '__main__' :
     
     # Create a Button widget and link this with the exiting function
     exit_button = ttk.Button(frame_3, text="Exit", command=exiting)
-    exit_button.pack(padx = 40, pady = 40)
+    exit_button.pack(padx = 40, pady =40)
     
     # Create a Button widget and link this with the write function
     write_button = ttk.Button(frame_3, text="Save Result as text",command=output)
-    write_button.pack()
+    write_button.pack(padx= 40, pady = 40)
     
     # Create a Button widget and link this with the write image function
     write_button = ttk.Button(frame_3, text="Save Result as image",command=image_output)
-    write_button.pack()
+    write_button.pack(padx = 40, pady = 40)
     
     root.geometry("1300x1000")
     

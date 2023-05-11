@@ -5,11 +5,25 @@ Created on Wed Apr 26 12:08:56 2023
 @author: gy22stp
 """
 
-# Read input data
+# Modules imported
 import csv
 
 # Read input data
 def read_data(filepath):
+    '''
+    Reads input data from a txt file in CSV format
+
+    Parameters
+    ----------
+    filepath :A list of rows, where each row is a list of values from the CSV file.
+
+    Returns
+    -------
+    data : A list of rows, where each row is a list of values from the CSV file.
+    n_rows : The number of rows in the data.
+    n_cols : The number of columns in the data.
+
+    '''
     f = open(filepath, newline='')
     data = []
     for line in csv.reader(f, quoting=csv.QUOTE_NONNUMERIC):
@@ -31,31 +45,25 @@ def read_data(filepath):
     f.close()
     print(data)
 
-# def read_data(file_paths):
-#     # Initialize data list
-#     data = []
 
-#     # Iterate through file paths
-#     for file_path in file_paths:
-#         # Initialize list for current file data
-#         file_data = []
-#         # Open file and read contents into list
-#         with open(file_path, newline='') as f:
-#             reader = csv.reader(f, quoting=csv.QUOTE_NONNUMERIC)
-#             for row in reader:
-#                 file_data.append(row)
-#         # Append current file data to data list
-#         data.append(file_data)
-
-    # Return resulting data list
-#     return data
-# file_paths = ['../../data/input/geology.txt', '../../data/input/population.txt', '../../data/input/transport.txt']
-# data = read_data(file_paths)
-# #print(data)
-
-#print('geology',data[0])
 
 def write_Data(filepath,output):
+    '''
+    Writes output data to a txt file in CSV format.
+
+    Parameters
+    ----------
+    filepath : string
+        The path to the txt file to write.
+    output : list of lists
+        A list of rows, where each row is a list of values to write to the CSV file.
+
+
+    Returns
+    -------
+    None.
+
+    '''
     f = open(filepath, 'w', newline='')
     writer = csv.writer(f,delimiter=',',quoting=csv.QUOTE_NONNUMERIC)
     for row in output:
